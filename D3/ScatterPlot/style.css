@@ -1,0 +1,43 @@
+
+
+body {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+  
+    align-items: center; /* Center items vertically */
+    background-color: rgb(242, 242, 242);
+}
+
+
+footer {
+    text-align: right;
+}
+div#tooltip {
+  position: absolute;
+  text-align: left;
+  padding: 10px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  }
+  
+  #tooltip.visible {
+    visibility: visible;
+  }
+#dot{
+  border-radius: 2px;
+}
+div#chart {
+    margin-left: auto;
+    margin-right: auto;
+
+    
+}
+div#legend {
+  text-align: right;
+}
