@@ -1,16 +1,11 @@
 import re
-from dataclasses import dataclass
-
-@dataclass
 class Operator:
-    problem: str
-
-    def calculate(self):
-        self.problem = self.problem.replace(" ", "")
-        match = re.search('([-+])', self.problem)
+    def calculate(self, problem):
+        problem = problem.replace(" ", "")
+        match = re.search('([-+])', problem)
         if match:
             operator = match.group(1)
-            x, y = re.split('[-+#]', self.problem)
+            x, y = re.split('[-+#]', problem)
             if not x.isdigit() or not y.isdigit():
                 return "Error: Numbers must only contain digits."
             x = int(x)
@@ -22,5 +17,4 @@ class Operator:
             elif operator == "-":
                 return x - y
         return "Error: Operator must be '+' or '-'."
-
 
