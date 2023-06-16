@@ -1,11 +1,17 @@
 import re
+
 class Operator:
-    def calculate(self, problem):
-        problem = problem.replace(" ", "")
-        match = re.search('([-+])', problem)
+    def __init__(self, problem):
+        self.problem = problem
+    
+    def __str__(self):
+        return self.problem
+    def calculate(self):
+        self.problem = self.problem.replace(" ", "")
+        match = re.search('([-+])', self.problem)
         if match:
             operator = match.group(1)
-            x, y = re.split('[-+#]', problem)
+            x, y = re.split('[-+#]', self.problem)
             if not x.isdigit() or not y.isdigit():
                 return "Error: Numbers must only contain digits."
             x = int(x)
@@ -17,4 +23,7 @@ class Operator:
             elif operator == "-":
                 return x - y
         return "Error: Operator must be '+' or '-'."
+
+problem = Operator("10 + 12")
+print(type(problem))
 

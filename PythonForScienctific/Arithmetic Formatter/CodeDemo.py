@@ -1,15 +1,18 @@
-string1 = "123+1332"
-result = "1213"
-def add_newline(string):
-    operators = ['+', '-', ]
-    for operator in operators:
-        string = string.replace(operator, '\n' + operator + '  ')
-    return string
-string = add_newline(string1)
-def transform(lines , result):
-    # Split the string into lines
-    lines = string.split('\n')
+from operate import Operator
 
+string1 = Operator("123 + 456")
+result = string1.calculate()
+
+def add_newline(problem):
+    operators = ['+', '-']
+    for operator in operators:
+        problem = problem.replace(operator, '\n' + operator + '  ')
+    return problem
+
+string = add_newline(string1.problem)
+
+
+def transform(lines, result):
     # Calculate the maximum line length
     max_length = max(len(line) for line in lines)
 
@@ -18,10 +21,10 @@ def transform(lines , result):
 
     # Right-align each line using string formatting
     aligned_lines = [line.rjust(max_length) for line in lines]
-    aligned_result = [result.rjust(max_length)]
+    aligned_result = [str(result).rjust(max_length)]
     # Join the aligned lines and dashes into a string
     aligned_string = '\n'.join(aligned_lines + [dashes] + aligned_result)
     return aligned_string
-print(transform(add_newline(string1),result))
 
-
+lines = string.split('\n')
+print(transform(lines, result))
