@@ -24,6 +24,5 @@ class Operator:
                 return x - y
         return "Error: Operator must be '+' or '-'."
 
-problem = Operator("10 + 12")
-print(type(problem))
+
 
