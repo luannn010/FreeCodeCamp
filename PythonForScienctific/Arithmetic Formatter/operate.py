@@ -1,28 +1,25 @@
-import re
-
 class Operator:
-    def __init__(self, problem):
-        self.problem = problem
-    
+    def __init__(self, problems):
+        self.problems = problems
+
     def __str__(self):
-        return self.problem
+        return str(self.problems)
+
     def calculate(self):
-        self.problem = self.problem.replace(" ", "")
-        match = re.search('([-+])', self.problem)
-        if match:
-            operator = match.group(1)
-            x, y = re.split('[-+#]', self.problem)
-            if not x.isdigit() or not y.isdigit():
-                return "Error: Numbers must only contain digits."
-            x = int(x)
-            y = int(y)
-            if not (-1000 < x < 1000) or not (-1000 < y < 1000):
-                return "Error: Numbers cannot be more than four digits."
-            if operator == "+":
-                return x + y
-            elif operator == "-":
-                return x - y
-        return "Error: Operator must be '+' or '-'."
-
-
-
+        operator = ['+', '-']
+        result = []
+        for problem in self.problems:
+            x, op, y = problem.split()
+            if op in operator:
+                if x.isdigit() and y.isdigit():
+                    x = int(x)
+                    y = int(y)
+                    if -10000 < x < 10000 and -10000 < y < 10000:
+                        result.append(eval(problem))
+                    else:
+                        raise ValueError("Error: Numbers cannot be more than four digits.")
+                else:
+                    raise ValueError("Error: Numbers must only contain digits.")
+            else:
+                raise ValueError("Error: Operator must be '+' or '-'.")
+        return result
