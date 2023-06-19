@@ -1,8 +1,8 @@
-def add_time(Time, added_time, date=""):
+def add_time(start_time, added_time, date=""):
     weekdate = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     # Split time and halves
-    time, halve = Time.split()
+    time, halve = start_time.split()
     
     # Separate halves
     if halve == "AM":
@@ -20,24 +20,37 @@ def add_time(Time, added_time, date=""):
     
     # Add 1 hour when minutes exceed 60
     minute += added_minute
-    if minute + added_minute > 60:
+    if minute >= 60:
         minute -= 60
         hour += 1
     
     # Calculate the updated hour
-    hour = hour + (added_hour % 12)
+    hour += added_hour % 12 -12
     
     # Calculate the added halves
-    k = k + (added_hour // 12)
+    added_halve = k + (added_hour // 12)
+    
+
+    if added_halve == 2:
+        day = ""
+    elif added_halve == 3 or added_halve == 4:
+        day = "next day"
+    else:
+        added_day = (added_halve - 2)//2
+        day = f"{added_day} days later"
     
     # Get the halve
-    if k % 2 == 0:
+    if added_halve % 2 == 0:
         halve = "PM"
     else:
         halve = "AM"
     
     # Format the time string
     new_time = f"{hour}:{minute:02d} {halve}"
+    if date:
+        new_time += f", {date}"
+    if day:
+        new_time += f" ({day})"
     
     print(new_time)
 
@@ -47,5 +60,5 @@ def time_split(clock):
     return hour, minute
 
 
-add_time("12:00 PM", "10:23")
-add_time("12:20 AM","20:12")
+add_time("12:00 PM", "13:23")
+add_time("12:20 AM", "20:12")
