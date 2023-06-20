@@ -1,25 +1,25 @@
-from category import Category
+# This entrypoint file to be used in development. Start by reading README.md
+import budget
+# from budget import create_spend_chart
+from unittest import main
 
-def main():
-    
-    # Create instances of the Category class
-    category1 = Category("Food")
-    category2 = Category("Clothing")
+food = budget.Category("Food")
+food.deposit(1000, "initial deposit")
+food.withdraw(10.15, "groceries")
+food.withdraw(15.89, "restaurant and more food for dessert")
+print(food.get_balance())
+clothing = budget.Category("Clothing")
+food.transfer(50, clothing)
+clothing.withdraw(25.55)
+clothing.withdraw(100)
+auto = budget.Category("Auto")
+auto.deposit(1000, "initial deposit")
+auto.withdraw(15)
 
-    # Deposit money to category1
-    category1.deposit(200, "Groceries")
-    category1.deposit(300, "Restaurant")
+print(food)
+print(clothing)
 
-    # Withdraw money from category1
-    category1.withdraw(100, "Snacks")
+# print(create_spend_chart([food, clothing, auto]))
 
-    # Transfer money from category1 to category2
-    category1.transfer(150, category2)
-
-    # Print the categories
-    print(category1)
-    print(category2)
-
-
-if __name__ == "__main__":
-    main()
+# Run unit tests automatically
+# main(module='test_module', exit=False)
