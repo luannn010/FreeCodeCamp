@@ -13,10 +13,10 @@ def test_WrongOperator():
     assert problem4.calculate() == "Error: Operator must be '+' or '-'."
 
 def test_Over4digits():
-    problem5 = Operator(["1001 + 2"])
-    problem6 = Operator(["9 - 2009"])
-    assert problem5.calculate() == "Error: Numbers cannot be more than four digits."
-    assert problem6.calculate() == "Error: Numbers cannot be more than four digits."
+    problem5 = Operator(["10001 + 2"])
+    problem6 = Operator(["9 - 20009"])
+    assert problem5.calculate() == "Error: Numbers cannot be more than five digits."
+    assert problem6.calculate() == "Error: Numbers cannot be more than five digits."
 
 def test_DigitsOnly():
     problem7 = Operator(["a + b"])

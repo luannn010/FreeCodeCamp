@@ -17,9 +17,9 @@ class Operator:
                     if -10000 < x < 10000 and -10000 < y < 10000:
                         result.append(eval(problem))
                     else:
-                        raise ValueError("Error: Numbers cannot be more than four digits.")
+                        return "Error: Numbers cannot be more than five digits."
                 else:
-                    raise ValueError("Error: Numbers must only contain digits.")
+                    return "Error: Numbers must only contain digits."
             else:
-                raise ValueError("Error: Operator must be '+' or '-'.")
+                return "Error: Operator must be '+' or '-'."
         return result
