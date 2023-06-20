@@ -1,58 +1,63 @@
 def add_time(start_time, added_time, date=""):
-    weekdate = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    
     # Split time and halves
     time, halve = start_time.split()
-    
+
     # Separate halves
     if halve == "AM":
         k = 1
     else:
         k = 2
-    
-    hour, minute = time_split(time)
-    added_hour, added_minute = time_split(added_time)
-    
-    hour = int(hour)
+
+    start_hour, start_min = time_split(time)
+    added_hour, added_min = time_split(added_time)
+
+    # Convert to integers
+    start_hour = int(start_hour)
     added_hour = int(added_hour)
-    minute = int(minute)
-    added_minute = int(added_minute)
-    
-    # Add 1 hour when minutes exceed 60
-    minute += added_minute
-    if minute >= 60:
-        minute -= 60
-        hour += 1
-    
-    # Calculate the updated hour
-    hour += added_hour % 12 -12
-    
-    # Calculate the added halves
-    added_halve = k + (added_hour // 12)
+    start_min = int(start_min)
+    added_min = int(added_min)
+
+    # Add minutes and handle rollover
+    new_min = (start_min + added_min)%60
+    added_min_hour = (start_min + added_min)//60
     
 
-    if added_halve == 2:
-        day = ""
-    elif added_halve == 3 or added_halve == 4:
-        day = "next day"
+    #new_hour
+    new_hour = (start_hour + added_hour + added_min_hour -1)%12 +1
+
+
+    #Add new halve
+    halves = (start_hour + added_hour + added_min_hour)//12 + k
+    if halves%2 == 0:
+        new_halve = "PM"
     else:
-        added_day = (added_halve - 2)//2
-        day = f"{added_day} days later"
-    
-    # Get the halve
-    if added_halve % 2 == 0:
-        halve = "PM"
+        new_halve = "AM"
+
+
+    # Add new day 
+    # In case from AM to PM dont change the date
+    if halves != 2:
+        day = halves//2
     else:
-        halve = "AM"
+        day = 0
     
+    # Get the message
+    if halves <=2:
+        new_day = ""
+    elif 3 <= halves <= 4:
+        new_day = " (next day)"
+    else:
+        new_day = f" ({day} days later)"
+    # Incase no date and with date
+    if date != "":
+        new_date = get_date(date, day)
+        new_time = f"{new_hour}:{new_min:02d} {new_halve}, {new_date}{new_day}"
+    else:
+        new_time = f"{new_hour}:{new_min:02d} {new_halve}{new_day}"
+
     # Format the time string
-    new_time = f"{hour}:{minute:02d} {halve}"
-    if date:
-        new_time += f", {date}"
-    if day:
-        new_time += f" ({day})"
     
-    print(new_time)
+    return new_time
 
 
 def time_split(clock):
@@ -60,5 +65,14 @@ def time_split(clock):
     return hour, minute
 
 
-add_time("12:00 PM", "13:23")
-add_time("12:20 AM", "20:12")
+def get_date(date, added_days):
+    weekdates = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    for i in range(len(weekdates)):
+        if weekdates[i].lower() == date.lower():
+            x = i
+
+    x += added_days % len(weekdates)
+    x %= len(weekdates)
+    return weekdates[x]
+
+
