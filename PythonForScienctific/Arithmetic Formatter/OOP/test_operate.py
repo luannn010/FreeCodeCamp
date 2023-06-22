@@ -1,5 +1,5 @@
 import pytest
-from operate import Operator
+from OOP.operate import Operator
 
 # Test case 1: Valid arithmetic operations
 def test_operator_valid():

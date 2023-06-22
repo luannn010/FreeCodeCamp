@@ -1,4 +1,4 @@
-from operate import Operator
+from OOP.operate import Operator
 
 class arithmetic_arranger(Operator):
     def __init__(self, problems, bool=False):

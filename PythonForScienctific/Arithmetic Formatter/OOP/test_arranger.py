@@ -1,5 +1,5 @@
 import pytest
-from arithmetic_arranger import arithmetic_arranger
+from OOP.demo import arithmetic_arranger
 
 # Test case 1: Valid arithmetic problems
 def test_arithmetic_arranger_valid():
