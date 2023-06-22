@@ -1,37 +1,44 @@
-from operate import Operator
+def arithmetic_arranger(problems, bool=False):
+    if len(problems) > 5:
+        return "Error: Too many problems."
 
-class arithmetic_arranger(Operator):
-    def __init__(self, problems, bool=False):
-        super().__init__(problems)
-        self.line1 = []
-        self.line2 = []
-        self.line3 = []
-        self.line4 = []  # Result (default)
-        self.bool = bool
-        self.separate_lines()  # Automatically call separate_lines() during initialization
+    line1 = []
+    line2 = []
+    line3 = []
+    line4 = []
 
-    def __str__(self):
-        
-        max_lengths = [max(len(line) for line in self.line1 + self.line2 + self.line3)]
-        for max_length in max_lengths:
-            dashes = '-' * max_length
-            self.line3.append(dashes)
+    operator = ['+', '-']
 
-        
-        line1 = "    ".join(str(item).rjust(max_length) for item in self.line1)
-        line2 = "    ".join(str(item).rjust(max_length) for item in self.line2)
-        line3 = "    ".join(str(item) for item in self.line3)
-        line4 = "    ".join(str(item).rjust(max_length) for item in self.line4)
-        
-        return f"{line1}\n{line2}\n{line3}\n{line4}"
+    for problem in problems:
+        x, op, y = problem.split()
 
-    def separate_lines(self):
-        for problem in self.problems:
-            x, op, y = problem.split()
-            k = op + " " + y
-            self.line1.append(x)
-            self.line2.append(k)
-            if self.bool:
-                self.line4 = self.calculate()
+        if op not in operator:
+            return "Error: Operator must be '+' or '-'."
+
+        if not x.isdigit() or not y.isdigit():
+            return "Error: Numbers must only contain digits."
+
+        if len(x) > 4 or len(y) > 4:
+            return "Error: Numbers cannot be more than four digits."
+
+        max_length = max(len(x), len(y)) + 2
+        line1.append(x.rjust(max_length))
+        line2.append(op + y.rjust(max_length - 1))
+        line3.append('-' * max_length)
+
+        if bool:
+            if op == '+':
+                result = str(int(x) + int(y))
             else:
-                self.line4 = []
+                result = str(int(x) - int(y))
+            line4.append(result.rjust(max_length))
+
+    arranged_problems = []
+    arranged_problems.append('    '.join(line1))
+    arranged_problems.append('    '.join(line2))
+    arranged_problems.append('    '.join(line3))
+
+    if bool:
+        arranged_problems.append('    '.join(line4))
+
+    return '\n'.join(arranged_problems)
