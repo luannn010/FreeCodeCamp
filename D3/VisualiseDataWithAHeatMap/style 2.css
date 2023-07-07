@@ -1,0 +1,44 @@
+
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+    
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+  
+    align-items: center; /* Center items vertically */
+    background-color: rgb(242, 242, 242);
+}
+
+
+footer {
+    text-align: right;
+}
+div#tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font: 12px sans-serif;
+  background: rgb(0, 9, 19);
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  color: white;
+  }
+  
+  #tooltip.visible {
+    visibility: visible;
+  }
+#dot{
+  border-radius: 2px;
+}
+div#chart {
+    margin-left: auto;
+    margin-right: auto;
+
+    
+}
+div#legend {
+  text-align: right;
+}
